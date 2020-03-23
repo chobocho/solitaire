@@ -21,11 +21,11 @@ public class PauseDrawEngineImpl implements DrawEngine {
 
     public PauseDrawEngineImpl() {
         try {
-            String imgName = "src\\img\\resume.png";
+            String imgName = "img\\resume.png";
             resumeImg = ImageIO.read(new File(imgName));
             WinLog.i(TAG, "Load image Success! " + imgName);
 
-            String newGameImgName = "src\\img\\newgame.png";
+            String newGameImgName = "img\\newgame.png";
             newGamgImg = ImageIO.read(new File(newGameImgName));
             WinLog.i(TAG, "Load image Success! " + newGameImgName);
         } catch (IOException e) {

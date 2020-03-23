@@ -24,7 +24,7 @@ public class EndDrawEngineImpl implements DrawEngine {
 
     public EndDrawEngineImpl() {
         try {
-            String imgName = "src\\img\\newgame.png";
+            String imgName = "img\\newgame.png";
             newGameImg = ImageIO.read(new File(imgName));
             WinLog.i(TAG, "Load image Success! " + imgName);
         } catch (IOException e) {

@@ -20,7 +20,7 @@ public class IdleDrawEngineImpl implements DrawEngine {
 
     public IdleDrawEngineImpl() {
         try {
-            String imgName = "src\\img\\start.png";
+            String imgName = "img\\start.png";
             startImg = ImageIO.read(new File(imgName));
             WinLog.i(TAG, "Load image Success! " +imgName);
         } catch (IOException e) {
