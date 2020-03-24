@@ -21,7 +21,7 @@ public class PlayDrawEngineImpl implements DrawEngine {
     }
 
     @Override
-    public void onDraw(Graphics g, BufferedImage[] cardImages, Solitare game, LinkedList<Integer> hideCard) {
+    public void onDraw(Graphics g, Solitare game, LinkedList<Integer> hideCard, BufferedImage[] cardImages, BufferedImage[] buttonImages) {
         onDrawBoardDeck(g, cardImages, game, hideCard);
         onDrawResultDeck(g, cardImages, game, hideCard);
         onDrawPlayDeck(g, cardImages, game, hideCard);

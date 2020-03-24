@@ -1,13 +1,10 @@
 package game.ui;
 
 import com.chobocho.solitaire.Solitare;
-import game.WinLog;
+import game.CardGameGui;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.LinkedList;
 
 public class IdleDrawEngineImpl implements DrawEngine {
@@ -18,21 +15,10 @@ public class IdleDrawEngineImpl implements DrawEngine {
     int cardCap = 20;
     BufferedImage startImg;
 
-    public IdleDrawEngineImpl() {
-        try {
-            String imgName = "img\\start.png";
-            startImg = ImageIO.read(new File(imgName));
-            WinLog.i(TAG, "Load image Success! " +imgName);
-        } catch (IOException e) {
-            WinLog.e(TAG, "Load image Error!!\n"+e);
-        }
-
-    }
-
     @Override
-    public void onDraw(Graphics g, BufferedImage[] cardImages, Solitare game, LinkedList<Integer> hideCard) {
+    public void onDraw(Graphics g, Solitare game, LinkedList<Integer> hideCard, BufferedImage[] cardImages, BufferedImage[] buttonImages) {
         onDrawBoardDeck(g, cardImages, game);
-        g.drawImage(startImg, 300, 300, null);
+        g.drawImage(buttonImages[CardGameGui.PLAY_GAME_IMAGE], 300, 300, null);
     }
 
     private void onDrawBoardDeck(Graphics g, BufferedImage[] cardImages, Solitare game) {

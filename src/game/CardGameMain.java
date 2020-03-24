@@ -9,10 +9,11 @@ import java.awt.*;
 
 public class CardGameMain extends JFrame {
     String TAG = "CardGameMain";
+    String Version = "V0.1105.TC2";
     JLabel statusbar;
 
     public CardGameMain() {
-        WinLog.i(TAG, "CardGameMain");
+        WinLog.i(TAG, "CardGameMain: " + Version);
         statusbar = new JLabel("Press S to play game");
         statusbar.setFont(new Font(statusbar.getFont().getFontName(), Font.PLAIN, 18));
         add(statusbar, BorderLayout.SOUTH);
@@ -26,7 +27,7 @@ public class CardGameMain extends JFrame {
         cardGameGui.start();
 
         setSize(800, 800);
-        setTitle("Solitaire");
+        setTitle("Solitaire " + Version);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 

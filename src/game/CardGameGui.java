@@ -12,7 +12,6 @@ import game.ui.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
 
@@ -43,61 +42,73 @@ public class CardGameGui extends JPanel implements GameObserver {
     public final static int CARD_NONE_IMAGE = 53;
     private CardGameMouseAdapter cardGameMouseAdapter;
 
+    final public static int NEW_GAME_IMAGE = 0;
+    final public static int PLAY_GAME_IMAGE = 1;
+    final public static int RESME_GAME_IMAGE = 2;
+
+    String [] buttonImageName = {
+            "/img/newgame.png",
+            "/img/start.png",
+            "/img/resume.png"
+    };
+
+    BufferedImage[] buttonImage = null;
+
     String[] imageName = {
-            "img\\BG.png",
-            "img\\CA.png",
-            "img\\C2.png",
-            "img\\C3.png",
-            "img\\C4.png",
-            "img\\C5.png",
-            "img\\C6.png",
-            "img\\C7.png",
-            "img\\C8.png",
-            "img\\C9.png",
-            "img\\C10.png",
-            "img\\CJ.png",
-            "img\\CQ.png",
-            "img\\CK.png",
-            "img\\DA.png",
-            "img\\D2.png",
-            "img\\D3.png",
-            "img\\D4.png",
-            "img\\D5.png",
-            "img\\D6.png",
-            "img\\D7.png",
-            "img\\D8.png",
-            "img\\D9.png",
-            "img\\D10.png",
-            "img\\DJ.png",
-            "img\\DQ.png",
-            "img\\DK.png",
-            "img\\HA.png",
-            "img\\H2.png",
-            "img\\H3.png",
-            "img\\H4.png",
-            "img\\H5.png",
-            "img\\H6.png",
-            "img\\H7.png",
-            "img\\H8.png",
-            "img\\H9.png",
-            "img\\H10.png",
-            "img\\HJ.png",
-            "img\\HQ.png",
-            "img\\HK.png",
-            "img\\SA.png",
-            "img\\S2.png",
-            "img\\S3.png",
-            "img\\S4.png",
-            "img\\S5.png",
-            "img\\S6.png",
-            "img\\S7.png",
-            "img\\S8.png",
-            "img\\S9.png",
-            "img\\S10.png",
-            "img\\SJ.png",
-            "img\\SQ.png",
-            "img\\SK.png",
-            "img\\none.png"
+            "/img/BG.png",
+            "/img/CA.png",
+            "/img/C2.png",
+            "/img/C3.png",
+            "/img/C4.png",
+            "/img/C5.png",
+            "/img/C6.png",
+            "/img/C7.png",
+            "/img/C8.png",
+            "/img/C9.png",
+            "/img/C10.png",
+            "/img/CJ.png",
+            "/img/CQ.png",
+            "/img/CK.png",
+            "/img/DA.png",
+            "/img/D2.png",
+            "/img/D3.png",
+            "/img/D4.png",
+            "/img/D5.png",
+            "/img/D6.png",
+            "/img/D7.png",
+            "/img/D8.png",
+            "/img/D9.png",
+            "/img/D10.png",
+            "/img/DJ.png",
+            "/img/DQ.png",
+            "/img/DK.png",
+            "/img/HA.png",
+            "/img/H2.png",
+            "/img/H3.png",
+            "/img/H4.png",
+            "/img/H5.png",
+            "/img/H6.png",
+            "/img/H7.png",
+            "/img/H8.png",
+            "/img/H9.png",
+            "/img/H10.png",
+            "/img/HJ.png",
+            "/img/HQ.png",
+            "/img/HK.png",
+            "/img/SA.png",
+            "/img/S2.png",
+            "/img/S3.png",
+            "/img/S4.png",
+            "/img/S5.png",
+            "/img/S6.png",
+            "/img/S7.png",
+            "/img/S8.png",
+            "/img/S9.png",
+            "/img/S10.png",
+            "/img/SJ.png",
+            "/img/SQ.png",
+            "/img/SK.png",
+            "/img/none.png"
     };
 
     public CardGameGui(CardGameMain parent,  Solitare solitare, CommandEngine cmdEngine) {
@@ -189,7 +200,7 @@ public class CardGameGui extends JPanel implements GameObserver {
         graphicsBuffer = screenBuffer.getGraphics();
         onDrawCommon(graphicsBuffer, width, height);
 
-        drawEngine.onDraw(graphicsBuffer, cardImages, solitare, cardGameMouseAdapter.hideCard);
+        drawEngine.onDraw(graphicsBuffer, solitare, cardGameMouseAdapter.hideCard, cardImages, buttonImage);
 
         if (cardGameMouseAdapter.isMovingCard) {
             for(int i = 0; i < cardGameMouseAdapter.hideCard.size(); i++) {
@@ -290,15 +301,12 @@ public class CardGameGui extends JPanel implements GameObserver {
 
         }
         public void mouseEntered(MouseEvent e) {
-            WinLog.i(TAG, "Mouse Entered" + e.getX() + ":" + e.getY());
-            //isMovingCard = false;
+            //WinLog.i(TAG, "Mouse Entered" + e.getX() + ":" + e.getY());
         }
         public void mouseExited(MouseEvent e) {
-            WinLog.i(TAG, "Mouse Exited");
-            //if (isMovingCard) {
-            //    repaint();
-           // }
+            //WinLog.i(TAG, "Mouse Exited");
         }
+
         public void mousePressed(MouseEvent e) {
             WinLog.i(TAG, "Mouse Pressed " + e.getX() + ":" + e.getY());
             mouseX = e.getX();
@@ -403,15 +411,27 @@ public class CardGameGui extends JPanel implements GameObserver {
 
     private void loadImage() {
         cardImages = new BufferedImage[imageName.length+1];
-        try {
-            for (int i = 0; i < imageName.length; i++) {
-                cardImages[i] = ImageIO.read(new File(imageName[i]));
+        for (int i = 0; i < imageName.length; i++) {
+            try {
+                cardImages[i] = ImageIO.read(getClass().getResource(imageName[i]));
                 WinLog.i(TAG, "Load image Success! " + imageName[i]);
+            } catch (IOException e) {
+                WinLog.i(TAG, "Load image fail! " + imageName[i]);
             }
-            WinLog.i(TAG, "Load image Success!");
-        } catch (IOException e) {
-            WinLog.e(TAG, "Load image Error!!\n"+e);
         }
+
+        buttonImage = new BufferedImage[buttonImageName.length+1];
+
+        for (int i = 0; i < buttonImageName.length; i++) {
+            try {
+                buttonImage[i] = ImageIO.read(getClass().getResource(buttonImageName[i]));
+                WinLog.i(TAG, "Load image Success! " + buttonImageName[i]);
+            } catch (IOException e) {
+                WinLog.i(TAG, "Load image fail! " + buttonImageName[i]);
+            }
+        }
+
+        WinLog.i(TAG, "Load image Success!");
     }
 
     private void onDrawCommon(Graphics g, int screenW, int screenH) {

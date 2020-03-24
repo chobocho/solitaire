@@ -7,5 +7,5 @@ import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 
 public interface DrawEngine {
-    void onDraw(Graphics g, BufferedImage[] cardImages, Solitare game, LinkedList<Integer> hideCard);
+    void onDraw(Graphics g, Solitare game, LinkedList<Integer> hideCard, BufferedImage[] cardImages, BufferedImage[] buttonImages);
 }
