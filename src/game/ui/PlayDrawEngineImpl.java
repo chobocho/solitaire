@@ -58,7 +58,7 @@ public class PlayDrawEngineImpl implements DrawEngine {
         for (int i = 0; i < 4; i++) {
             decks[i] = game.getDeck(PlayState.RESULT_DECK_1+i);
 
-            if (decks[i].size() > 0) {
+            if (!decks[i].isEmpty()) {
                 Card card = decks[i].top();
                 //WinLog.i(TAG, decks[i].toString());
                 //WinLog.i(TAG, card.toString());
@@ -83,18 +83,19 @@ public class PlayDrawEngineImpl implements DrawEngine {
 
         //WinLog.i(TAG, "onDrawPlayDeck");
         Deck deck = game.getDeck(PlayState.PLAY_DECK);
-        if (deck.size() > 0 && deck.top().isOpen()) {
+        if (!deck.isEmpty() && deck.top().isOpen()) {
             Card card = deck.top();
             //WinLog.i(TAG, deck.toString());
             //WinLog.i(TAG, card.toString());
             int imgNumber = (card.getFigure().getValue() - 1) * 13 + card.getNumber().getValue();
             g.drawImage(cardImages[imgNumber], 70+width*6, 10, null);
-        } else if (deck.size() == 0) {
+        } else if (deck.isEmpty()) {
             g.drawImage(cardImages[CARD_NONE_IMAGE], 70+width*6, 10, null);
         }
 
         Deck openedCardDeck = game.getDeck(PlayState.OPENED_CARD_DECK);
-        if (openedCardDeck.size() > 0 && openedCardDeck.top().isOpen()) {
+
+        if (!openedCardDeck.isEmpty() && openedCardDeck.top().isOpen()) {
             Card card = openedCardDeck.top();
             //WinLog.i(TAG, openedCardDeck.toString());
             //WinLog.i(TAG, card.toString());

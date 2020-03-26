@@ -1,16 +1,12 @@
 package com.chobocho.deck;
 
 import com.chobocho.card.Card;
-import com.chobocho.util.CLog;
 
-import java.util.LinkedList;
-
-public class PlayDeck implements Deck {
+public class PlayDeck extends Deck {
     final static String TAG = "PlayDeck";
-    private LinkedList<Card> deck;
 
     public PlayDeck() {
-        this.deck = new LinkedList<Card>();
+
     }
 
     public void init() {
@@ -31,15 +27,11 @@ public class PlayDeck implements Deck {
     }
 
     public boolean openTopCard() {
-        return deck.get(0).open();
+        return (!deck.isEmpty()) && deck.get(0).open();
     }
 
     public void clear() {
         this.deck.clear();
-    }
-
-    public boolean isEmpty() {
-        return this.deck.isEmpty();
     }
 
     public String toString() {

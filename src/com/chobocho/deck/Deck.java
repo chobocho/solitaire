@@ -2,13 +2,59 @@ package com.chobocho.deck;
 
 import com.chobocho.card.Card;
 
-public interface Deck {
-    public boolean push(Card card);
-    public Card pop();
-    public boolean openTopCard();
-    public Card get(int n);
-    public Card top();
-    public void clear();
-    public void init();
-    public int size();
+import java.util.LinkedList;
+
+abstract public class Deck {
+    protected CardCheckMethod checkMethod;
+    protected LinkedList<Card> deck;
+
+    public Deck() {
+        this.deck = new LinkedList<Card>();
+    }
+
+    public void setCheckMethod(CardCheckMethod method) {
+        this.checkMethod = method;
+    }
+
+    abstract public boolean push(Card card);
+
+    abstract public Card pop();
+
+    public Card top() {
+        return deck.peek();
+    }
+
+    public boolean openTopCard() {
+        return false;
+    }
+
+    public Card get(int n) {
+        if (deck.isEmpty()) {
+            return null;
+        }
+        return deck.get(n);
+    }
+
+    public void clear() {
+        this.deck.clear();
+    }
+
+    abstract public void init();
+
+    public int size() {
+        return this.deck.size();
+    }
+    public boolean isEmpty() {
+        return this.deck.isEmpty();
+    }
+
+    public String toString() {
+        StringBuffer result = new StringBuffer();
+
+        for (Card card : deck) {
+            result.append(card + " ");
+        }
+
+        return result.toString();
+    }
 }

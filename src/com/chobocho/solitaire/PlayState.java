@@ -26,8 +26,8 @@ public class PlayState extends GameState {
     public static final int OPENED_CARD_DECK = 12;
     public static final int INIT_DECK = 13;
 
-    IPlayDeck[] resultDeck;
-    IPlayDeck[] boardDeck;
+    Deck[] resultDeck;
+    Deck[] boardDeck;
     Deck playDeck;
     Deck opendCardDeck;
     Deck initDeck;
@@ -125,7 +125,7 @@ public class PlayState extends GameState {
 
         moveCard(INIT_DECK, BOARD_DECK_7);
 
-        while(initDeck.size() > 0) {
+        while(!initDeck.isEmpty()) {
             moveCard(INIT_DECK, PLAY_DECK);
         }
 
@@ -141,7 +141,7 @@ public class PlayState extends GameState {
     @Override
     public boolean moveCard(int from, int to) {
         //CLog.i(TAG,"Try to move card from " + from + " to " + to);
-        if (deckList.get(from).size() == 0) {
+        if (deckList.get(from).isEmpty()) {
             CLog.e(TAG,"Deck " + from + " is empty!");
             return false;
         }
@@ -173,7 +173,7 @@ public class PlayState extends GameState {
 
         if (deckList.get(to).push(card)) {
             deck.pop();
-            while(deck.size() > 0) {
+            while(!deck.isEmpty()) {
                 deckList.get(to).push(deck.pop());
             }
             for (int i = 0; i < count; i++) {
@@ -197,8 +197,8 @@ public class PlayState extends GameState {
     }
 
     private boolean openPlayDecCard() {
-        if (playDeck.size() == 0) {
-            if (opendCardDeck.size() == 0) {
+        if (playDeck.isEmpty()) {
+            if (opendCardDeck.isEmpty()) {
                 CLog.i(TAG, "There is no left card!");
                 return false;
             }

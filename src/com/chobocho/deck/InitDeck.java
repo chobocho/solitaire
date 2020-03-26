@@ -3,13 +3,11 @@ package com.chobocho.deck;
 import com.chobocho.card.Card;
 
 import java.util.Collections;
-import java.util.LinkedList;
 
-public class InitDeck implements Deck {
-    private LinkedList<Card> deck;
+public class InitDeck extends Deck {
 
     public InitDeck() {
-        this.deck = new LinkedList<Card>();
+        super();
         init();
     }
 
@@ -28,46 +26,11 @@ public class InitDeck implements Deck {
         Collections.shuffle(deck);
     }
 
-    public void clear() {
-        this.deck.clear();
-    }
-
     public boolean push(Card card) {
         this.deck.push(card);
         return true;
     }
-
     public Card pop() {
         return deck.pop();
-    }
-
-    public Card top() {
-        return deck.peek();
-    }
-
-    public boolean openTopCard() {
-        /* Do nothing */
-        return false;
-    }
-
-    public String toString() {
-        StringBuffer result = new StringBuffer();
-
-        for(Card card : deck) {
-            result.append(card + " ");
-        }
-
-        return result.toString();
-    }
-
-    public Card get(int n) {
-        if(deck.isEmpty()) {
-            return null;
-        }
-        return deck.get(n);
-    }
-
-    public int size() {
-        return this.deck.size();
     }
 }

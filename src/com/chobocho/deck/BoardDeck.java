@@ -5,10 +5,8 @@ import com.chobocho.util.CLog;
 
 import java.util.LinkedList;
 
-public class BoardDeck implements IPlayDeck {
+public class BoardDeck extends Deck {
     final static String TAG = "BoardDeck";
-    private LinkedList<Card> deck;
-    CardCheckMethod checkMethod;
 
     public BoardDeck(CardCheckMethod checkMethod) {
         this.deck = new LinkedList<Card>();

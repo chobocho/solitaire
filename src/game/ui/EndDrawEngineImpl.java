@@ -33,7 +33,7 @@ public class EndDrawEngineImpl implements DrawEngine {
         for (int i = 0; i < 4; i++) {
             deck = game.getDeck(0);
 
-            if (deck.size() > 0) {
+            if (!deck.isEmpty()) {
                 Card card = deck.get(i);
                 if (card == null) {
                     continue;
@@ -42,5 +42,7 @@ public class EndDrawEngineImpl implements DrawEngine {
                 g.drawImage(cardImages[imgNumber], 10 + width * i + 10 * i, 10, null);
             }
         }
+
+        g.drawImage(cardImages[CARD_NONE_IMAGE], 70+width*6, 10, null);
     }
 }

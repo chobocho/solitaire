@@ -457,6 +457,4 @@ public class CardGameGui extends JPanel implements GameObserver {
         g.drawImage(cardImages[CARD_NONE_IMAGE], 60+width*5, 20+height, null);
         g.drawImage(cardImages[CARD_NONE_IMAGE], 70+width*6, 20+height, null);
     }
-
-
 }
