@@ -5,26 +5,9 @@ import com.chobocho.deck.*;
 import com.chobocho.util.CLog;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class PlayState extends GameState {
     final static String TAG = "PlayState";
-    public static final int PLAY_DECK = 0;
-    public static final int RESULT_DECK_1 = 1;
-    public static final int RESULT_DECK_2 = 2;
-    public static final int RESULT_DECK_3 = 3;
-    public static final int RESULT_DECK_4 = 4;
-
-    public static final int BOARD_DECK_1 = 5;
-    public static final int BOARD_DECK_2 = 6;
-    public static final int BOARD_DECK_3 = 7;
-    public static final int BOARD_DECK_4 = 8;
-    public static final int BOARD_DECK_5 = 9;
-    public static final int BOARD_DECK_6 = 10;
-    public static final int BOARD_DECK_7 = 11;
-
-    public static final int OPENED_CARD_DECK = 12;
-    public static final int INIT_DECK = 13;
 
     Deck[] resultDeck;
     Deck[] boardDeck;
@@ -92,52 +75,52 @@ public class PlayState extends GameState {
     }
 
     private void runInitBoardCmd() {
-        moveCard(INIT_DECK, BOARD_DECK_1);
-        moveCard(INIT_DECK, BOARD_DECK_2);
-        moveCard(INIT_DECK, BOARD_DECK_3);
-        moveCard(INIT_DECK, BOARD_DECK_4);
-        moveCard(INIT_DECK, BOARD_DECK_5);
-        moveCard(INIT_DECK, BOARD_DECK_6);
-        moveCard(INIT_DECK, BOARD_DECK_7);
+        moveCard(Solitare.INIT_DECK, Solitare.BOARD_DECK_1);
+        moveCard(Solitare.INIT_DECK, Solitare.BOARD_DECK_2);
+        moveCard(Solitare.INIT_DECK, Solitare.BOARD_DECK_3);
+        moveCard(Solitare.INIT_DECK, Solitare.BOARD_DECK_4);
+        moveCard(Solitare.INIT_DECK, Solitare.BOARD_DECK_5);
+        moveCard(Solitare.INIT_DECK, Solitare.BOARD_DECK_6);
+        moveCard(Solitare.INIT_DECK, Solitare.BOARD_DECK_7);
 
-        moveCard(INIT_DECK, BOARD_DECK_2);
-        moveCard(INIT_DECK, BOARD_DECK_3);
-        moveCard(INIT_DECK, BOARD_DECK_4);
-        moveCard(INIT_DECK, BOARD_DECK_5);
-        moveCard(INIT_DECK, BOARD_DECK_6);
-        moveCard(INIT_DECK, BOARD_DECK_7);
+        moveCard(Solitare.INIT_DECK, Solitare.BOARD_DECK_2);
+        moveCard(Solitare.INIT_DECK, Solitare.BOARD_DECK_3);
+        moveCard(Solitare.INIT_DECK, Solitare.BOARD_DECK_4);
+        moveCard(Solitare.INIT_DECK, Solitare.BOARD_DECK_5);
+        moveCard(Solitare.INIT_DECK, Solitare.BOARD_DECK_6);
+        moveCard(Solitare.INIT_DECK, Solitare.BOARD_DECK_7);
 
-        moveCard(INIT_DECK, BOARD_DECK_3);
-        moveCard(INIT_DECK, BOARD_DECK_4);
-        moveCard(INIT_DECK, BOARD_DECK_5);
-        moveCard(INIT_DECK, BOARD_DECK_6);
-        moveCard(INIT_DECK, BOARD_DECK_7);
+        moveCard(Solitare.INIT_DECK, Solitare.BOARD_DECK_3);
+        moveCard(Solitare.INIT_DECK, Solitare.BOARD_DECK_4);
+        moveCard(Solitare.INIT_DECK, Solitare.BOARD_DECK_5);
+        moveCard(Solitare.INIT_DECK, Solitare.BOARD_DECK_6);
+        moveCard(Solitare.INIT_DECK, Solitare.BOARD_DECK_7);
 
-        moveCard(INIT_DECK, BOARD_DECK_4);
-        moveCard(INIT_DECK, BOARD_DECK_5);
-        moveCard(INIT_DECK, BOARD_DECK_6);
-        moveCard(INIT_DECK, BOARD_DECK_7);
+        moveCard(Solitare.INIT_DECK, Solitare.BOARD_DECK_4);
+        moveCard(Solitare.INIT_DECK, Solitare.BOARD_DECK_5);
+        moveCard(Solitare.INIT_DECK, Solitare.BOARD_DECK_6);
+        moveCard(Solitare.INIT_DECK, Solitare.BOARD_DECK_7);
 
-        moveCard(INIT_DECK, BOARD_DECK_5);
-        moveCard(INIT_DECK, BOARD_DECK_6);
-        moveCard(INIT_DECK, BOARD_DECK_7);
+        moveCard(Solitare.INIT_DECK, Solitare.BOARD_DECK_5);
+        moveCard(Solitare.INIT_DECK, Solitare.BOARD_DECK_6);
+        moveCard(Solitare.INIT_DECK, Solitare.BOARD_DECK_7);
 
-        moveCard(INIT_DECK, BOARD_DECK_6);
-        moveCard(INIT_DECK, BOARD_DECK_7);
+        moveCard(Solitare.INIT_DECK, Solitare.BOARD_DECK_6);
+        moveCard(Solitare.INIT_DECK, Solitare.BOARD_DECK_7);
 
-        moveCard(INIT_DECK, BOARD_DECK_7);
+        moveCard(Solitare.INIT_DECK, Solitare.BOARD_DECK_7);
 
         while(!initDeck.isEmpty()) {
-            moveCard(INIT_DECK, PLAY_DECK);
+            moveCard(Solitare.INIT_DECK, Solitare.PLAY_DECK);
         }
 
-        openCard(BOARD_DECK_1);
-        openCard(BOARD_DECK_2);
-        openCard(BOARD_DECK_3);
-        openCard(BOARD_DECK_4);
-        openCard(BOARD_DECK_5);
-        openCard(BOARD_DECK_6);
-        openCard(BOARD_DECK_7);
+        openCard(Solitare.BOARD_DECK_1);
+        openCard(Solitare.BOARD_DECK_2);
+        openCard(Solitare.BOARD_DECK_3);
+        openCard(Solitare.BOARD_DECK_4);
+        openCard(Solitare.BOARD_DECK_5);
+        openCard(Solitare.BOARD_DECK_6);
+        openCard(Solitare.BOARD_DECK_7);
     }
 
     private boolean moveCard(int from, int to) {
@@ -162,7 +145,7 @@ public class PlayState extends GameState {
     public boolean moveCard(int from, int to, int count) {
         boolean result = false;
 
-        if (to == PlayState.PLAY_DECK || to == PlayState.OPENED_CARD_DECK) {
+        if (to == Solitare.PLAY_DECK || to == Solitare.OPENED_CARD_DECK) {
             return false;
         }
 
@@ -170,7 +153,7 @@ public class PlayState extends GameState {
             return moveCard(from, to);
         }
 
-        if (to >= PlayState.RESULT_DECK_1 && to <= PlayState.RESULT_DECK_4) {
+        if (to >= Solitare.RESULT_DECK_1 && to <= Solitare.RESULT_DECK_4) {
             return false;
         }
 
@@ -201,7 +184,7 @@ public class PlayState extends GameState {
     @Override
     public boolean openCard(int deckNum) {
         CLog.i(TAG, "openCard " + deckNum);
-        if (deckNum == PLAY_DECK) {
+        if (deckNum == Solitare.PLAY_DECK) {
             return openPlayDecCard();
         }
         return deckList.get(deckNum).openTopCard();
@@ -221,8 +204,8 @@ public class PlayState extends GameState {
             CLog.i(TAG, "Update card!");
             return true;
         }
-        if (moveCard(PLAY_DECK, OPENED_CARD_DECK)) {
-            return deckList.get(OPENED_CARD_DECK).openTopCard();
+        if (moveCard(Solitare.PLAY_DECK, Solitare.OPENED_CARD_DECK)) {
+            return deckList.get(Solitare.OPENED_CARD_DECK).openTopCard();
         }
 
         return false;
@@ -250,10 +233,10 @@ public class PlayState extends GameState {
 
     @Override
     public boolean isFinishGame() {
-        return (deckList.get(RESULT_DECK_1).size() == 13) &&
-                (deckList.get(RESULT_DECK_2).size() == 13) &&
-                (deckList.get(RESULT_DECK_3).size() == 13) &&
-                (deckList.get(RESULT_DECK_4).size() == 13);
+        return (deckList.get(Solitare.RESULT_DECK_1).size() == 13) &&
+                (deckList.get(Solitare.RESULT_DECK_2).size() == 13) &&
+                (deckList.get(Solitare.RESULT_DECK_3).size() == 13) &&
+                (deckList.get(Solitare.RESULT_DECK_4).size() == 13);
     }
 
     @Override

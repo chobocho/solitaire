@@ -2,7 +2,6 @@ package game.ui;
 
 import com.chobocho.card.Card;
 import com.chobocho.deck.Deck;
-import com.chobocho.solitaire.PlayState;
 import com.chobocho.solitaire.Solitare;
 
 import java.awt.*;
@@ -31,7 +30,7 @@ public class PlayDrawEngineImpl implements DrawEngine {
         Deck[] decks = new Deck[7];
 
         for (int i = 0; i < 7; i++) {
-            decks[i] = game.getDeck(PlayState.BOARD_DECK_1+i);
+            decks[i] = game.getDeck(Solitare.BOARD_DECK_1+i);
 
             int cap = 0;
             for (int j = decks[i].size()-1, k = 0; j >= 0; --j, k++) {
@@ -56,7 +55,7 @@ public class PlayDrawEngineImpl implements DrawEngine {
         Deck[] decks = new Deck[4];
 
         for (int i = 0; i < 4; i++) {
-            decks[i] = game.getDeck(PlayState.RESULT_DECK_1+i);
+            decks[i] = game.getDeck(Solitare.RESULT_DECK_1+i);
 
             if (!decks[i].isEmpty()) {
                 Card card = decks[i].top();
@@ -82,7 +81,7 @@ public class PlayDrawEngineImpl implements DrawEngine {
         //WinLog.i(TAG, game.getDeck(PlayState.OPENED_CARD_DECK).toString());
 
         //WinLog.i(TAG, "onDrawPlayDeck");
-        Deck deck = game.getDeck(PlayState.PLAY_DECK);
+        Deck deck = game.getDeck(Solitare.PLAY_DECK);
         if (!deck.isEmpty() && deck.top().isOpen()) {
             Card card = deck.top();
             //WinLog.i(TAG, deck.toString());
@@ -93,7 +92,7 @@ public class PlayDrawEngineImpl implements DrawEngine {
             g.drawImage(cardImages[CARD_NONE_IMAGE], 70+width*6, 10, null);
         }
 
-        Deck openedCardDeck = game.getDeck(PlayState.OPENED_CARD_DECK);
+        Deck openedCardDeck = game.getDeck(Solitare.OPENED_CARD_DECK);
 
         if (!openedCardDeck.isEmpty() && openedCardDeck.top().isOpen()) {
             Card card = openedCardDeck.top();
