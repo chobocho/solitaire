@@ -169,7 +169,8 @@ public class CardGameGui extends JPanel implements GameObserver {
                 statusbar.setText(" Press S to start game!");
                 break;
             case GameState.PLAY_STATE:
-                statusbar.setText(" [Help] ESC or P:  pause game | B:  Revert | " + solitare.getMoveCount() + " moved");
+                // statusbar.setText(" [Help] ESC or P:  pause game | B:  Revert | " + solitare.getMoveCount() + " moved");
+                statusbar.setText(" [Help] ESC or P:  pause game | B:  Revert");
                 break;
             case GameState.PAUSE_STATE:
                 statusbar.setText(" Press S or R to resume game!");
@@ -184,7 +185,8 @@ public class CardGameGui extends JPanel implements GameObserver {
 
     private void updateMoveCount() {
         if (solitare.isPlayState()) {
-            statusbar.setText(" [Help] ESC or P:  pause game | B:  Revert | " + solitare.getMoveCount() + " moved");
+            // statusbar.setText(" [Help] ESC or P:  pause game | B:  Revert | " + solitare.getMoveCount() + " moved");
+            statusbar.setText(" [Help] ESC or P:  pause game | B:  Revert");
         }
     }
 
