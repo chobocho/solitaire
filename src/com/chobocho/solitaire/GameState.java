@@ -26,10 +26,6 @@ public class GameState {
         return false;
     }
 
-    public boolean moveCard(int from, int to) {
-        return false;
-    }
-
     public boolean moveCard(int from, int to, int count) {
         return false;
     }
@@ -46,5 +42,9 @@ public class GameState {
 
     public boolean isFinishGame() {
         return false;
+    }
+
+    public int getMoveCount() {
+        return 0;
     }
 }

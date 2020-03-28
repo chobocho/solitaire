@@ -166,29 +166,35 @@ public class CardGameGui extends JPanel implements GameObserver {
     private void updateStatusBar(int state) {
         switch (state) {
             case GameState.IDLE_STATE:
-                statusbar.setText("Press S to start game!");
+                statusbar.setText(" Press S to start game!");
                 break;
             case GameState.PLAY_STATE:
-                statusbar.setText("Press ESC or P to pause game!");
+                // statusbar.setText(" [Help] ESC or P:  pause game | B:  Revert | " + solitare.getMoveCount() + " moved");
+                statusbar.setText(" [Help] ESC or P:  pause game");
                 break;
             case GameState.PAUSE_STATE:
-                statusbar.setText("Press S or R to resume game!");
+                statusbar.setText(" Press S or R to resume game!");
                 break;
             case GameState.END_STATE:
-                statusbar.setText("Press S to start game!");
+                statusbar.setText(" Press S to start game!");
                 break;
             default:
                 break;
         }
     }
 
-    public void start()
-    {
+    private void updateMoveCount() {
+        if (solitare.isPlayState()) {
+            // statusbar.setText(" [Help] ESC or P:  pause game | B:  Revert | " + solitare.getMoveCount() + " moved");
+            statusbar.setText(" [Help] ESC or P:  pause game");
+        }
+    }
+
+    public void start() {
         statusbar.setText("Press S to start game!");
     }
 
-    public void paint(Graphics g)
-    {
+    public void paint(Graphics g) {
         super.paint(g);
         Dimension size = getSize();
 
@@ -300,6 +306,7 @@ public class CardGameGui extends JPanel implements GameObserver {
                 PlayCommand moveCmd = commandFactory.CreateCommand(pos.deck, 0, i + PlayState.RESULT_DECK_1, 0);
                 if (cmdEngine.runCommand(moveCmd)) {
                     repaint();
+                    updateMoveCount();
                     break;
                 }
             }
@@ -347,7 +354,7 @@ public class CardGameGui extends JPanel implements GameObserver {
             int deck = StartPos.deck;
             int moveCount = StartPos.position + 1;
 
-            WinLog.i(TAG, "paint " + Integer.toString(deck) + ":" + Integer.toString(moveCount));
+            //WinLog.i(TAG, "paint " + Integer.toString(deck) + ":" + Integer.toString(moveCount));
 
             for (int i = 0; i < moveCount; i++) {
                 Card card = solitare.getDeck(deck).get(i);
@@ -372,32 +379,40 @@ public class CardGameGui extends JPanel implements GameObserver {
             mouseX = e.getX();
             mouseY = e.getY();
 
-            if (isMovingCard) {
-            //    mouseX += 50;
-            //    mouseY += 75;
-            }
-
             hideCard.clear();
 
+            // Check left top of moving card
             EndPos = deckPositoinManager.getCardInfo(mouseX-mouseDx, mouseY-mouseDy);
+
+            // Check the mouse X,Y
+            if (EndPos == null) {
+                EndPos = deckPositoinManager.getCardInfo(mouseX, mouseY);
+            }
+
+            // Check Right top of moving card
+            if (EndPos == null) {
+                EndPos = deckPositoinManager.getCardInfo(mouseX + (100 - mouseDx), mouseY - mouseDy);
+            }
 
             if (EndPos == null) {
                 if (isMovingCard) {
+                    updateMoveCount();
                     repaint();
                 }
                 isMovingCard = false;
                 return;
             }
-            
-            WinLog.i(TAG,"RelesedDeck :" + EndPos.deck);
-            WinLog.i(TAG, "Mouse Released "+ StartPos.toString());
-            WinLog.i(TAG, "Mouse Released "+ EndPos.toString());
+
+            //WinLog.i(TAG,"Relesed Deck :" + EndPos.deck);
+            //WinLog.i(TAG, "Mouse Released "+ StartPos.toString());
+            //WinLog.i(TAG, "Mouse Released "+ EndPos.toString());
 
             // WinLog.i(TAG, deckPositoinManager.toString());
             PlayCommand cmd = commandFactory.CreateCommand(StartPos.deck, StartPos.position, EndPos.deck, EndPos.position);
 
             if (cmdEngine.runCommand(cmd) || isMovingCard) {
                 isMovingCard = false;
+                updateMoveCount();
                 repaint();
             }
 

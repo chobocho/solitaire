@@ -104,4 +104,6 @@ public class SolitareImpl implements Solitare {
     public boolean isFinishGame() {
         return state.isFinishGame();
     }
+
+    public int getMoveCount() { return state.getMoveCount(); }
 }
