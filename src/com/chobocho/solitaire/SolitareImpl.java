@@ -82,10 +82,10 @@ public class SolitareImpl implements Solitare {
                 break;
             case GameState.END_STATE:
                 Card[] cards = new Card[4];
-                cards[0] = playState.getDeck(PlayState.RESULT_DECK_1).top();
-                cards[1] = playState.getDeck(PlayState.RESULT_DECK_2).top();
-                cards[2] = playState.getDeck(PlayState.RESULT_DECK_3).top();
-                cards[3] = playState.getDeck(PlayState.RESULT_DECK_4).top();
+                cards[0] = playState.getDeck(Solitare.RESULT_DECK_1).top();
+                cards[1] = playState.getDeck(Solitare.RESULT_DECK_2).top();
+                cards[2] = playState.getDeck(Solitare.RESULT_DECK_3).top();
+                cards[3] = playState.getDeck(Solitare.RESULT_DECK_4).top();
                 playState.initGame();
                 state = endState;
                 state.pushCard(cards);

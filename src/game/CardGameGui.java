@@ -4,7 +4,6 @@ import com.chobocho.card.Card;
 import com.chobocho.command.*;
 import com.chobocho.solitaire.GameObserver;
 import com.chobocho.solitaire.GameState;
-import com.chobocho.solitaire.PlayState;
 import com.chobocho.solitaire.Solitare;
 import game.cmd.DeckPositoinManagerImpl;
 import game.ui.*;
@@ -254,7 +253,7 @@ public class CardGameGui extends JPanel implements GameObserver {
                 case KeyEvent.VK_Y:
                 case KeyEvent.VK_U:
                     for (int i = 0; i < 4; i++) {
-                        PlayCommand moveCmd = commandFactory.CreateCommand(CommandFactory.KEYPRESS_EVENT, keycode, i+PlayState.RESULT_DECK_1);
+                        PlayCommand moveCmd = commandFactory.CreateCommand(CommandFactory.KEYPRESS_EVENT, keycode, i+ Solitare.RESULT_DECK_1);
                         if (cmdEngine.runCommand(moveCmd)) {
                             repaint();
                             break;
@@ -294,16 +293,16 @@ public class CardGameGui extends JPanel implements GameObserver {
             if (pos == null) {
                 return;
             }
-            if (pos.deck == PlayState.RESULT_DECK_1 ||
-                    pos.deck == PlayState.RESULT_DECK_2 ||
-                    pos.deck == PlayState.RESULT_DECK_3 ||
-                    pos.deck == PlayState.RESULT_DECK_4 ||
-                    pos.deck == PlayState.PLAY_DECK) {
+            if (pos.deck == Solitare.RESULT_DECK_1 ||
+                    pos.deck == Solitare.RESULT_DECK_2 ||
+                    pos.deck == Solitare.RESULT_DECK_3 ||
+                    pos.deck == Solitare.RESULT_DECK_4 ||
+                    pos.deck == Solitare.PLAY_DECK) {
                 return;
             }
 
             for (int i = 0; i < 4; i++) {
-                PlayCommand moveCmd = commandFactory.CreateCommand(pos.deck, 0, i + PlayState.RESULT_DECK_1, 0);
+                PlayCommand moveCmd = commandFactory.CreateCommand(pos.deck, 0, i + Solitare.RESULT_DECK_1, 0);
                 if (cmdEngine.runCommand(moveCmd)) {
                     repaint();
                     updateMoveCount();
@@ -332,7 +331,7 @@ public class CardGameGui extends JPanel implements GameObserver {
             StartPos = deckPositoinManager.getCardInfo(mouseX, mouseY);
 
             if (StartPos != null) {
-                if (StartPos.deck == PlayState.PLAY_DECK) {
+                if (StartPos.deck == Solitare.PLAY_DECK) {
                     isMovingCard = false;
                 } else {
                     makeHideCardList();
