@@ -50,9 +50,9 @@ public class WinPlayCommandFactoryStateImpl extends PlayCommandFactoryStateImpl 
                     return new PlayCommand(PlayCommand.MOVE, Solitare.OPENED_CARD_DECK, Solitare.BOARD_DECK_4);
                 case 71: // G
                     return new PlayCommand(PlayCommand.MOVE, Solitare.OPENED_CARD_DECK, Solitare.BOARD_DECK_5);
-                case 72: // S
+                case 72: // H
                     return new PlayCommand(PlayCommand.MOVE, Solitare.OPENED_CARD_DECK, Solitare.BOARD_DECK_6);
-                case 74: // S
+                case 74: // Jj
                     return new PlayCommand(PlayCommand.MOVE, Solitare.OPENED_CARD_DECK, Solitare.BOARD_DECK_7);
 
                 case 81: // Q
@@ -71,6 +71,9 @@ public class WinPlayCommandFactoryStateImpl extends PlayCommandFactoryStateImpl 
                     return new PlayCommand(PlayCommand.MOVE, Solitare.BOARD_DECK_7, y);
                 case 79: // O
                     return new PlayCommand(PlayCommand.OPEN, Solitare.PLAY_DECK, Solitare.PLAY_DECK);
+
+                case 66: // B
+                    return new PlayCommand(PlayCommand.BACK, 0, 0);
 
                 case 27: // ESC
                 case 80: // P

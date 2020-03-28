@@ -5,6 +5,7 @@ import com.chobocho.deck.*;
 import com.chobocho.util.CLog;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class PlayState extends GameState {
     final static String TAG = "PlayState";
@@ -15,7 +16,8 @@ public class PlayState extends GameState {
     Deck opendCardDeck;
     Deck initDeck;
     ArrayList<Deck> deckList;
-    private int moveCount;
+    LinkedList<MoveCommand> history;
+    int moveCount = 0;
 
     public PlayState() {
         initVars();
@@ -24,6 +26,7 @@ public class PlayState extends GameState {
     }
 
     private void initVars() {
+        history = new LinkedList<MoveCommand>();
         deckList = new ArrayList<Deck>();
 
         initDeck = new InitDeck();
@@ -66,6 +69,7 @@ public class PlayState extends GameState {
 
     private void initBoard() {
         moveCount = 0;
+        history.clear();
         initDeck.init();
         for (Deck deck : deckList) {
             deck.init();
@@ -150,7 +154,11 @@ public class PlayState extends GameState {
         }
 
         if (count == 1) {
-            return moveCard(from, to);
+            result =  moveCard(from, to);
+            if (result) {
+                moveCount++;
+            }
+            return result;
         }
 
         if (to >= Solitare.RESULT_DECK_1 && to <= Solitare.RESULT_DECK_4) {
@@ -173,6 +181,8 @@ public class PlayState extends GameState {
             for (int i = 0; i < count; i++) {
                deckList.get(from).pop();
             }
+            moveCount++;
+            pushHistory(new MoveCommand(from, to, count));
             return true;
         } else {
             CLog.i(TAG, deck.toString());
@@ -181,6 +191,8 @@ public class PlayState extends GameState {
         return false;
     }
 
+    private void moveCardFroced(int from, int to, int count) {
+    }
     @Override
     public boolean openCard(int deckNum) {
         CLog.i(TAG, "openCard " + deckNum);
@@ -221,6 +233,11 @@ public class PlayState extends GameState {
         for(int i = 0; i < deckList.size(); i++) {
             result.append(i + " size " + deckList.get(i).size() + ": " + deckList.get(i) + "\n");
         }
+
+        result.append("History: \n");
+        for(int i = 0; i < history.size(); i++) {
+            result.append(history.get(i).toStinrg() + "\n");
+        }
         return result.toString();
     }
 
@@ -240,8 +257,19 @@ public class PlayState extends GameState {
     }
 
     @Override
+    public boolean back() {
+        if (history.isEmpty()) return false;
+        MoveCommand cmd = history.pop();
+        moveCardFroced(cmd.to, cmd.from, cmd.count);
+        moveCount++;
+        return true;
+    }
+
+    private void pushHistory(MoveCommand cmd) {
+        history.push(cmd);
+    }
+
     public int getMoveCount() {
         return moveCount;
     }
-    
 }
