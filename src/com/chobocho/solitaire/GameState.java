@@ -26,10 +26,6 @@ public class GameState {
         return false;
     }
 
-    public boolean moveCard(int from, int to) {
-        return false;
-    }
-
     public boolean moveCard(int from, int to, int count) {
         return false;
     }

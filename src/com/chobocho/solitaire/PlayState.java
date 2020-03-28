@@ -140,8 +140,7 @@ public class PlayState extends GameState {
         openCard(BOARD_DECK_7);
     }
 
-    @Override
-    public boolean moveCard(int from, int to) {
+    private boolean moveCard(int from, int to) {
         //CLog.i(TAG,"Try to move card from " + from + " to " + to);
         if (deckList.get(from).isEmpty()) {
             CLog.e(TAG,"Deck " + from + " is empty!");
@@ -161,8 +160,18 @@ public class PlayState extends GameState {
 
     @Override
     public boolean moveCard(int from, int to, int count) {
+        boolean result = false;
+
+        if (to == PlayState.PLAY_DECK || to == PlayState.OPENED_CARD_DECK) {
+            return false;
+        }
+
         if (count == 1) {
             return moveCard(from, to);
+        }
+
+        if (to >= PlayState.RESULT_DECK_1 && to <= PlayState.RESULT_DECK_4) {
+            return false;
         }
 
         Deck deck = new PlayDeck();

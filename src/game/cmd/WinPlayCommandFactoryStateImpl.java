@@ -18,7 +18,7 @@ public class WinPlayCommandFactoryStateImpl extends PlayCommandFactoryStateImpl 
             return new PlayCommand(PlayCommand.OPEN, fromDeck, fromDeck);
         }
         else {
-            if (fromDeck == PlayState.PLAY_DECK || toDeck == PlayState.OPENED_CARD_DECK) {
+            if (fromDeck == PlayState.PLAY_DECK) {
                 return null;
             }
             int count = fromPos+1;
