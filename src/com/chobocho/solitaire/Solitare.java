@@ -17,4 +17,5 @@ public interface Solitare {
 
     public boolean isPlayState();
     public boolean isFinishGame();
+    public int getMoveCount();
 }

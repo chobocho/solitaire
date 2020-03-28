@@ -32,6 +32,7 @@ public class PlayState extends GameState {
     Deck opendCardDeck;
     Deck initDeck;
     ArrayList<Deck> deckList;
+    private int moveCount;
 
     public PlayState() {
         initVars();
@@ -81,6 +82,7 @@ public class PlayState extends GameState {
     }
 
     private void initBoard() {
+        moveCount = 0;
         initDeck.init();
         for (Deck deck : deckList) {
             deck.init();
@@ -243,5 +245,10 @@ public class PlayState extends GameState {
                 (deckList.get(RESULT_DECK_2).size() == 13) &&
                 (deckList.get(RESULT_DECK_3).size() == 13) &&
                 (deckList.get(RESULT_DECK_4).size() == 13);
+    }
+
+    @Override
+    public int getMoveCount() {
+        return moveCount;
     }
 }

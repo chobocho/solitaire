@@ -47,4 +47,8 @@ public class GameState {
     public boolean isFinishGame() {
         return false;
     }
+
+    public int getMoveCount() {
+        return 0;
+    }
 }
