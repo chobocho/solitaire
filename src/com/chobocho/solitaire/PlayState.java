@@ -243,9 +243,5 @@ public class PlayState extends GameState {
     public int getMoveCount() {
         return moveCount;
     }
-
-    @Override
-    public int getMoveCount() {
-        return moveCount;
-    }
+    
 }
