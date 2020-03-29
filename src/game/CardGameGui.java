@@ -240,6 +240,7 @@ public class CardGameGui extends JPanel implements GameObserver {
                 case KeyEvent.VK_ESCAPE:
                     PlayCommand cmd = commandFactory.CreateCommand(CommandFactory.KEYPRESS_EVENT, keycode, 0);
                     if (cmdEngine.runCommand(cmd)){
+                        updateMoveCount();
                         repaint();
                     }
                     break;
@@ -254,6 +255,7 @@ public class CardGameGui extends JPanel implements GameObserver {
                     for (int i = 0; i < 4; i++) {
                         PlayCommand moveCmd = commandFactory.CreateCommand(CommandFactory.KEYPRESS_EVENT, keycode, i+ Solitare.RESULT_DECK_1);
                         if (cmdEngine.runCommand(moveCmd)) {
+                            updateMoveCount();
                             repaint();
                             break;
                         }

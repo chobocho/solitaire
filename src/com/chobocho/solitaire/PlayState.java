@@ -69,11 +69,11 @@ public class PlayState extends GameState {
         history.clear();
         // CLog.i(TAG,this.toString());
         pushHistory();
+        moveCount = 0;
         // CLog.i(TAG,history.toString());
     }
 
     private void initBoard() {
-        moveCount = 0;
         initDeck.init();
         for (Deck deck : deckList) {
             deck.init();
@@ -161,7 +161,6 @@ public class PlayState extends GameState {
             result =  moveCard(from, to);
             if (result) {
                 pushHistory();
-                moveCount++;
             }
             return result;
         }
@@ -186,7 +185,6 @@ public class PlayState extends GameState {
             for (int i = 0; i < count; i++) {
                deckList.get(from).pop();
             }
-            moveCount++;
             pushHistory();
             return true;
         } else {
