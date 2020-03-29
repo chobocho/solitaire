@@ -16,6 +16,11 @@ abstract public class Deck {
         this.checkMethod = method;
     }
 
+    public boolean forcePush(Card card) {
+        this.deck.push(card);
+        return true;
+    }
+
     abstract public boolean push(Card card);
 
     abstract public Card pop();
