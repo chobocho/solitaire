@@ -5,6 +5,7 @@ import com.chobocho.deck.*;
 import com.chobocho.util.CLog;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class PlayState extends GameState {
     final static String TAG = "PlayState";
@@ -15,7 +16,9 @@ public class PlayState extends GameState {
     Deck opendCardDeck;
     Deck initDeck;
     ArrayList<Deck> deckList;
-    private int moveCount;
+    HistoryManager history;
+
+    int moveCount = 0;
 
     public PlayState() {
         initVars();
@@ -24,6 +27,7 @@ public class PlayState extends GameState {
     }
 
     private void initVars() {
+        history = new HistoryManagerImpl();
         deckList = new ArrayList<Deck>();
 
         initDeck = new InitDeck();
@@ -62,6 +66,10 @@ public class PlayState extends GameState {
 
     public void initGame() {
         initBoard();
+        history.clear();
+        // CLog.i(TAG,this.toString());
+        pushHistory();
+        // CLog.i(TAG,history.toString());
     }
 
     private void initBoard() {
@@ -150,7 +158,12 @@ public class PlayState extends GameState {
         }
 
         if (count == 1) {
-            return moveCard(from, to);
+            result =  moveCard(from, to);
+            if (result) {
+                pushHistory();
+                moveCount++;
+            }
+            return result;
         }
 
         if (to >= Solitare.RESULT_DECK_1 && to <= Solitare.RESULT_DECK_4) {
@@ -173,6 +186,8 @@ public class PlayState extends GameState {
             for (int i = 0; i < count; i++) {
                deckList.get(from).pop();
             }
+            moveCount++;
+            pushHistory();
             return true;
         } else {
             CLog.i(TAG, deck.toString());
@@ -181,13 +196,25 @@ public class PlayState extends GameState {
         return false;
     }
 
+    private void moveCardFroced(int from, int to, int count) {
+        //TODO
+    }
     @Override
     public boolean openCard(int deckNum) {
+        boolean result = false;
         CLog.i(TAG, "openCard " + deckNum);
         if (deckNum == Solitare.PLAY_DECK) {
-            return openPlayDecCard();
+            result =  openPlayDecCard();
+            if (result) {
+                pushHistory();
+            }
+            return result;
         }
-        return deckList.get(deckNum).openTopCard();
+        result =  deckList.get(deckNum).openTopCard();
+        if (result) {
+            pushHistory();
+        }
+        return result;
     }
 
     private boolean openPlayDecCard() {
@@ -218,8 +245,14 @@ public class PlayState extends GameState {
     public String toString() {
         StringBuffer result = new StringBuffer();
 
+        result.append("\n");
         for(int i = 0; i < deckList.size(); i++) {
             result.append(i + " size " + deckList.get(i).size() + ": " + deckList.get(i) + "\n");
+        }
+
+        result.append("History: \n");
+        for(int i = 0; i < history.size(); i++) {
+            result.append(history.get(i).toString() + "\n");
         }
         return result.toString();
     }
@@ -240,8 +273,38 @@ public class PlayState extends GameState {
     }
 
     @Override
+    public boolean revert() {
+        if (history.isEmpty())  {
+            CLog.i(TAG,"revert fail - history is empty");
+            return false;
+        }
+
+        CLog.i(TAG,"revert");
+        BoardState prevBoard = history.pop();
+
+        //CLog.i(TAG, prevBoard.toString());
+
+        for (int i = Solitare.PLAY_DECK; i <= Solitare.OPENED_CARD_DECK; i++) {
+            Deck source = prevBoard.decks.get(i);
+            deckList.get(i).clear();
+            if (!source.isEmpty()) {
+                for (int j = source.size() - 1; j >= 0; --j) {
+                    Card card = new Card(source.get(j));
+                    deckList.get(i).forcePush(card);
+                }
+            }
+        }
+        moveCount++;
+        return true;
+    }
+
+    private void pushHistory() {
+        CLog.i(TAG,"pushHistory");
+        history.push(new BoardState(deckList));
+        moveCount++;
+    }
+
     public int getMoveCount() {
         return moveCount;
     }
-    
 }

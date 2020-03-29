@@ -30,14 +30,19 @@ public class GameState {
         return false;
     }
 
-    public int getState() { return NONE_STATE; }
+    public int getState() {
+        return NONE_STATE;
+    }
 
     public boolean openCard(int deck) {
         return false;
     }
 
-    public void pushCard(Card[] cards) {
+    public boolean revert() {
+        return false;
+    }
 
+    public void pushCard(Card[] cards) {
     }
 
     public boolean isFinishGame() {

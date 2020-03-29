@@ -57,6 +57,13 @@ public class Card {
         setColor();
     }
 
+    public Card(Card card) {
+        this.figure = card.figure;
+        this.number = card.number;
+        this.isOpenState = card.isOpenState;
+        setColor();
+    }
+
     private void setColor() {
         if ((this.figure == FIGURE.SPADE)||(this.figure == FIGURE.CLOVER)) {
             this.color = COLOR.BLACK;
