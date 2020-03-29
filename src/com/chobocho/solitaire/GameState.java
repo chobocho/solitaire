@@ -38,7 +38,7 @@ public class GameState {
         return false;
     }
 
-    public boolean back() {
+    public boolean revert() {
         return false;
     }
 

@@ -48,8 +48,8 @@ public class SolitareImpl implements Solitare {
         return state.moveCard(from, to, count);
     }
 
-    public boolean back() {
-        return state.back();
+    public boolean revert() {
+        return state.revert();
     }
 
     public boolean play() {

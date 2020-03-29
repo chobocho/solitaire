@@ -24,7 +24,7 @@ public interface Solitare {
     public Deck getDeck(int deck);
     public boolean moveCard(int from, int to, int count);
     public boolean openDeck(int deck);
-    public boolean back();
+    public boolean revert();
     public boolean play();
     public boolean pause();
     public boolean winState();
