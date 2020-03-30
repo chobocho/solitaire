@@ -64,6 +64,13 @@ public class Card {
         setColor();
     }
 
+    public Card(int card) {
+        figure = FIGURE.values()[(card >> 5) & 0x7];
+        number = NUMBER.values()[(card >> 1) & 0xf];
+        isOpenState = ((card & 0x1) == 0x1);
+        setColor();
+    }
+
     private void setColor() {
         if ((this.figure == FIGURE.SPADE)||(this.figure == FIGURE.CLOVER)) {
             this.color = COLOR.BLACK;
@@ -103,11 +110,21 @@ public class Card {
         return figure;
     }
 
+    public boolean equal(Card card) {
+        return figure == card.figure && number == card.number &&
+                isOpenState == card.isOpenState && color == card.color;
+    }
+
     public String toString() {
         String[] figureName = { "N", "C", "D", "H", "S"};
         String[] NumberName = { "N", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
         String openState = this.isOpenState ? "O" : "C";
 
         return figureName[this.figure.getValue()] + NumberName[this.number.getValue()] + "_" + openState;
+    }
+
+    public int toInt() {
+        // FIGURE 3 bit | NU<BER 4 bit | OPEN 1 bit
+        return figure.getValue() << 5 | number.getValue() << 1 | (isOpenState ? 1 : 0);
     }
 }

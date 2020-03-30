@@ -281,25 +281,39 @@ public class PlayState extends GameState {
         BoardState prevBoard = history.pop();
 
         //CLog.i(TAG, prevBoard.toString());
+        Short[] source = prevBoard.decks;
 
         for (int i = Solitare.PLAY_DECK; i <= Solitare.OPENED_CARD_DECK; i++) {
-            Deck source = prevBoard.decks.get(i);
             deckList.get(i).clear();
-            if (!source.isEmpty()) {
-                for (int j = source.size() - 1; j >= 0; --j) {
-                    Card card = new Card(source.get(j));
-                    deckList.get(i).forcePush(card);
-                }
-            }
         }
+
+        for (int j = prevBoard.decks.length-1; j >= 0; --j) {
+            short card = prevBoard.decks[j];
+            int deck = (card >> 8);
+            deckList.get(deck).forcePush(new Card(card & 0xff));
+        }
+
         moveCount++;
         return true;
     }
 
     private void pushHistory() {
         CLog.i(TAG,"pushHistory");
-        history.push(new BoardState(deckList));
+        history.push(new BoardState(getBoardState()));
+        // CLog.i(TAG,history.toString());
         moveCount++;
+    }
+
+    private short[] getBoardState() {
+        short[] result = new short[53];
+        int k = 0;
+        for (int i = Solitare.PLAY_DECK; i <= Solitare.OPENED_CARD_DECK; i++) {
+            for (int j = 0; j < deckList.get(i).size(); j++) {
+                result[k]  = (short)(i << 8 | deckList.get(i).get(j).toInt());
+                k++;
+            }
+        }
+        return result;
     }
 
     public int getMoveCount() {

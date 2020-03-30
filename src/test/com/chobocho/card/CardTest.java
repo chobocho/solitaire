@@ -33,4 +33,19 @@ public class CardTest {
         Card card = new Card(Card.FIGURE.SPADE, Card.NUMBER.ACE);
         assert(card.getNumber().getValue() == 1);
     }
+
+    @Test
+    public void testInt() throws Exception {
+        Card card = new Card(Card.FIGURE.SPADE, Card.NUMBER.ACE);
+        assertEquals(card.toInt(), 130);
+        Card card2 = new Card(130);
+        assertEquals(card2.getFigure(), Card.FIGURE.SPADE);
+        assertEquals(card2.getNumber(), Card.NUMBER.ACE);
+        assertEquals(card.toString(), card2.toString());
+        assertEquals(card.equal(card2), true);
+
+        Card card3 = new Card(Card.FIGURE.DIAMOND, Card.NUMBER.KING);
+        assertEquals(card3.toInt(), 90);
+        assertEquals(card3.equal(new Card(card3.toInt())), true);
+    }
 }
