@@ -286,7 +286,6 @@ public class PlayState extends GameState {
         for (int i = Solitare.PLAY_DECK; i <= Solitare.OPENED_CARD_DECK; i++) {
             deckList.get(i).clear();
         }
-        CLog.i(TAG, String.valueOf(prevBoard.decks.length));
 
         for (int j = prevBoard.decks.length-1; j >= 0; --j) {
             short card = prevBoard.decks[j];
@@ -301,7 +300,7 @@ public class PlayState extends GameState {
     private void pushHistory() {
         CLog.i(TAG,"pushHistory");
         history.push(new BoardState(getBoardState()));
-        CLog.i(TAG,history.toString());
+        // CLog.i(TAG,history.toString());
         moveCount++;
     }
 
