@@ -277,7 +277,6 @@ public class PlayState extends GameState {
             return false;
         }
 
-        CLog.i(TAG,"revert");
         BoardState prevBoard = history.pop();
 
         //CLog.i(TAG, prevBoard.toString());
