@@ -70,6 +70,7 @@ public class WinPlayCommandFactoryStateImpl extends PlayCommandFactoryStateImpl 
                 case 85: // U
                     return new PlayCommand(PlayCommand.MOVE, Solitare.BOARD_DECK_7, y);
                 case 79: // O
+                case 44: // ,
                     return new PlayCommand(PlayCommand.OPEN, Solitare.PLAY_DECK, Solitare.PLAY_DECK);
 
                 case 66: // B
