@@ -108,7 +108,8 @@ public class CardGameGui extends JPanel implements GameObserver {
             "/img/SJ.png",
             "/img/SQ.png",
             "/img/SK.png",
-            "/img/none.png"
+            "/img/none.png",
+            "/img/abg.png"
     };
 
     public CardGameGui(CardGameMain parent,  Solitare solitare, CommandEngine cmdEngine) {
@@ -237,6 +238,7 @@ public class CardGameGui extends JPanel implements GameObserver {
                 case KeyEvent.VK_H:
                 case KeyEvent.VK_J:
                 case KeyEvent.VK_P:
+                case KeyEvent.VK_COMMA:
                 case KeyEvent.VK_ESCAPE:
                     PlayCommand cmd = commandFactory.CreateCommand(CommandFactory.KEYPRESS_EVENT, keycode, 0);
                     if (cmdEngine.runCommand(cmd)){
@@ -261,6 +263,34 @@ public class CardGameGui extends JPanel implements GameObserver {
                         }
                     }
                     break;
+                case KeyEvent.VK_PERIOD: {
+                    int i = 0;
+                    int j = 0;
+                    for (i = KeyEvent.VK_1; i <= KeyEvent.VK_4; i++) {
+                        PlayCommand command = commandFactory.CreateCommand(CommandFactory.KEYPRESS_EVENT, i, 0);
+                        if (cmdEngine.runCommand(command)) {
+                            updateMoveCount();
+                            repaint();
+                            return;
+                        }
+                    }
+
+                    int[] keyList = {81, 87, 69, 82, 84, 89, 85};
+                    for (i = 0; i < keyList.length; i++) {
+                        for (j = Solitare.RESULT_DECK_1; j  <= Solitare.BOARD_DECK_7; j++) {
+                            if ((i + 4) == j) {
+                                continue;
+                            }
+                            PlayCommand command = commandFactory.CreateCommand(CommandFactory.KEYPRESS_EVENT, keyList[i], j);
+                            if (cmdEngine.runCommand(command)) {
+                                updateMoveCount();
+                                repaint();
+                                return;
+                            }
+                        }
+                    }
+                }
+                break;
             }
         }
     }
@@ -308,6 +338,18 @@ public class CardGameGui extends JPanel implements GameObserver {
                     repaint();
                     updateMoveCount();
                     break;
+                }
+            }
+
+            for (int i = 0; i < 8; i++) {
+                if (pos.deck == (i+Solitare.BOARD_DECK_1)) {
+                    continue;
+                }
+                PlayCommand moveCmd = commandFactory.CreateCommand(pos.deck, 0, i + Solitare.BOARD_DECK_1, 0);
+                if (cmdEngine.runCommand(moveCmd)) {
+                    repaint();
+                    updateMoveCount();
+                    return;
                 }
             }
 
