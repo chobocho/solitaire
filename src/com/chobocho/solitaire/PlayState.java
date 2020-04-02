@@ -318,4 +318,8 @@ public class PlayState extends GameState {
     public int getMoveCount() {
         return moveCount;
     }
+
+    boolean isMovableDeck(int deck) {
+        return (deck != Solitare.PLAY_DECK);
+    }
 }

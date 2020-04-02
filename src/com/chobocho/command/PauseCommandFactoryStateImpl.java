@@ -1,7 +1,5 @@
 package com.chobocho.command;
 
-import game.WinLog;
-
 import java.util.LinkedList;
 
 public class PauseCommandFactoryStateImpl implements CommandFactoryState {

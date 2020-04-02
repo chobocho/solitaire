@@ -110,4 +110,8 @@ public class SolitareImpl implements Solitare {
     }
 
     public int getMoveCount() { return state.getMoveCount(); }
+
+    public boolean isMovableDeck(int deck) {
+        return state.isMovableDeck(deck);
+    }
 }

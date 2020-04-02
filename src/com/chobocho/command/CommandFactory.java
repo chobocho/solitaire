@@ -2,7 +2,7 @@ package com.chobocho.command;
 
 import com.chobocho.solitaire.GameObserver;
 import com.chobocho.solitaire.GameState;
-import game.WinLog;
+import com.chobocho.util.CLog;
 
 public abstract class CommandFactory implements GameObserver {
     final static String TAG = "CommandFactory";
@@ -17,7 +17,7 @@ public abstract class CommandFactory implements GameObserver {
     protected CommandFactoryState endState;
     @Override
     public void updateState(int nextState) {
-        WinLog.i(TAG, "updateState: " + nextState);
+        CLog.i(TAG, "updateState: " + nextState);
         switch (nextState) {
             case GameState.IDLE_STATE:
                 state=idleState;

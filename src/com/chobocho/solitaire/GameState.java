@@ -52,4 +52,8 @@ public class GameState {
     public int getMoveCount() {
         return 0;
     }
+
+    boolean isMovableDeck(int deck) {
+        return false;
+    }
 }

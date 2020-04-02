@@ -411,8 +411,25 @@ public class CardGameGui extends JPanel implements GameObserver {
             }
         }
 
+        private boolean runCommand(CardPosition pos) {
+            if (pos == null) {
+                return false;
+            }
+            PlayCommand cmd = commandFactory.CreateCommand(StartPos.deck, StartPos.position, pos.deck, pos.position);
+
+            if (cmdEngine.runCommand(cmd)) {
+                updateMoveCount();
+                repaint();
+                return true;
+            }
+
+            return false;
+        }
+
         public void mouseReleased(MouseEvent e) {
             WinLog.i(TAG, "Mouse Released "+ e.getX() + ":" + e.getY());
+
+            isMovingCard = false;
 
             if (StartPos == null) {
                 return;
@@ -426,38 +443,26 @@ public class CardGameGui extends JPanel implements GameObserver {
             // Check left top of moving card
             EndPos = deckPositoinManager.getCardInfo(mouseX-mouseDx, mouseY-mouseDy);
 
-            // Check the mouse X,Y
-            if (EndPos == null) {
-                EndPos = deckPositoinManager.getCardInfo(mouseX, mouseY);
-            }
-
-            // Check Right top of moving card
-            if (EndPos == null) {
-                EndPos = deckPositoinManager.getCardInfo(mouseX + (100 - mouseDx), mouseY - mouseDy);
-            }
-
-            if (EndPos == null) {
-                if (isMovingCard) {
-                    updateMoveCount();
-                    repaint();
-                }
-                isMovingCard = false;
+            if (runCommand(EndPos)) {
                 return;
             }
 
-            //WinLog.i(TAG,"Relesed Deck :" + EndPos.deck);
-            //WinLog.i(TAG, "Mouse Released "+ StartPos.toString());
-            //WinLog.i(TAG, "Mouse Released "+ EndPos.toString());
+            // Check the mouse X,Y
+            EndPos = deckPositoinManager.getCardInfo(mouseX, mouseY);
 
-            // WinLog.i(TAG, deckPositoinManager.toString());
-            PlayCommand cmd = commandFactory.CreateCommand(StartPos.deck, StartPos.position, EndPos.deck, EndPos.position);
-
-            if (cmdEngine.runCommand(cmd) || isMovingCard) {
-                isMovingCard = false;
-                updateMoveCount();
-                repaint();
+            if (runCommand(EndPos)) {
+                return;
             }
 
+            // Check Right top of moving card
+            EndPos = deckPositoinManager.getCardInfo(mouseX + (100 - mouseDx), mouseY - mouseDy);
+
+            if (runCommand(EndPos)) {
+                return;
+            }
+
+            updateMoveCount();
+            repaint();
         }
     }
 
